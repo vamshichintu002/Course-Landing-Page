@@ -6,56 +6,88 @@ import { ChevronDown, ChevronUp, Lock } from 'lucide-react'
 const initialModules = [
   {
     week: 0,
-    title: "Essential Prerequisites",
+    title: "Introduction to Generative AI",
     type: "FREE PREVIEW",
     lessons: [
-      { type: "video", count: 2 }
+      { type: "live", count: 1 },
+      { type: "video", count: 3 
+        
+      } // Updated count for new lessons
     ],
     expanded: false,
-    subLessons: []
+    subLessons: [
+      { title: "What is Generative AI?" },
+      { title: "Definitions and Examples" },
+      { title: "Overview of AI's role in content creation (text, image, audio, video)" },
+      { title: "Key technologies (Neural Networks, GPT, GANs)" },
+      { title: "Applications of Generative AI" },
+      { title: "Industry use-cases: marketing, entertainment, software development, art, etc." },
+      { title: "How businesses are leveraging Generative AI" }
+    ]
   },
   {
     week: 1,
-    title: "Proprietary Models & Diffusion",
+    title: "AI Tools and Platforms for Non-Coders",
     type: "DIVE STRAIGHT IN THE DEEP END",
     lessons: [
-    { type: "assignment", count: 1 }
+      { type: "assignment", count: 2 } // Updated count for new lessons
     ],
     expanded: true,
     subLessons: [
-      { title: "History of GenAI, How to Research and Intro to Playground AI", type: "LIVE LESSON" },
-      { title: "How Diffusion Models Work and Playground AI", type: "LIVE LESSON" },
-      { title: "Practice Set - 1", type: "ASSIGNMENT" },
-      { title: "Prompt Engineering for Various Outputs", type: "LIVE LESSON" }
+      { title: "Overview of No-Code AI Platforms" },
+      { title: "Introduction to platforms like Bubble, Appy Pie, Wix with AI tools, and Zapier" },
+      { title: "Use cases of AI integrations (Chatbots, content generators, AI-powered customer service)" },
+      { title: "Overview of AI tools we are going to use" },
+      { title: "Introduction to v0." },
+      { title: "Introduction to Cursor and installation of cursor" },
+      { title: "Introduction to Supabase" },
+      { title: "Introduction to Clerk" }
     ]
   },
   {
     week: 2,
-    title: "Intro to Stable Diffusion",
+    title: "Obtaining API keys from LLM's",
     type: "PROMPTS, PARAMETERS, SCRIPTS & MORE",
     lessons: [
-      
-      { type: "video", count: 13 },
+      { type: "video", count: 2 }, // Updated count for new lessons
       { type: "assignment", count: 1 }
     ],
     expanded: true,
     subLessons: [
-      { title: "History of GenAI, How to Research and Intro to Playground AI", type: "LIVE LESSON" },
-      { title: "How Diffusion Models Work and Playground AI", type: "LIVE LESSON" },
-      { title: "Practice Set - 1", type: "ASSIGNMENT" },
-      { title: "Prompt Engineering for Various Outputs", type: "LIVE LESSON" }]
+      { title: "Overview of LLM's" },
+      { title: "Introduction to Gemini API" },
+      { title: "Introduction to Groq's API" }
+    ]
   },
   {
     week: 3,
-    title: "Advanced Stable Diffusion",
+    title: "Practical Project",
     type: "IMG2IMG, EXTENSION & INPAINTING",
     lessons: [
-      
-      { type: "video", count: 3 },
+      { type: "video", count: 3 }, // Updated count for new lessons
       { type: "assignment", count: 1 }
     ],
     expanded: false,
-    subLessons: []
+    subLessons: [
+      { title: "Build an AI-Powered Web App" },
+      { title: "Step-by-step guide to creating a simple AI-powered web app (e.g., an AI writing assistant, chatbot, or image generator)" },
+      { title: "Focus on using a no-code platform and integrating APIs (e.g., GPT-4) for added functionality" }
+    ]
+  },
+  {
+    week: 4,
+    title: "Practical Project",
+    type: "IMG2IMG, EXTENSION & INPAINTING",
+    lessons: [
+      { type: "video", count: 3 }, // Updated count for new lessons
+      { type: "assignment", count: 1 }
+    ],
+    expanded: false,
+    subLessons: [
+      { title: "Build an AI-Powered Web App" },
+      { title: "Step-by-step guide to creating a simple AI-powered web app (e.g., an AI writing assistant, chatbot, or image generator)" },
+      { title: "Focus on using a no-code platform and integrating APIs (e.g., GPT-4) for added functionality" }
+    ]
   }
 ]
 
@@ -122,13 +154,17 @@ function TimelineItem({ module, toggleModule }: { module: typeof initialModules[
       </div>
       {module.expanded && (
         <div className="ml-16 mt-4 space-y-2">
-          {module.subLessons.map((subLesson: { title: string; type: string }, index: number) => (
-            <SubLessonItem key={index} title={subLesson.title} type={subLesson.type} />
+          {module.subLessons.map((subLesson: SubLesson, index: number) => (
+            <SubLessonItem key={index} title={subLesson.title} />
           ))}
         </div>
       )}
     </div>
   )
+}
+
+interface SubLesson {
+    title: string; // Removed 'type'
 }
 
 function LessonBadge({ type, count }: { type: string; count: number }) {
@@ -142,12 +178,11 @@ function LessonBadge({ type, count }: { type: string; count: number }) {
   )
 }
 
-function SubLessonItem({ title, type }: { title: string; type: string }) {
+function SubLessonItem({ title }: { title: string }) {
   return (
     <div className="flex items-center space-x-2 text-sm">
       <Lock size={16} className="text-gray-400" />
       <span className="text-gray-600">{title}</span>
-      <span className="text-xs text-gray-400">{type}</span>
     </div>
   )
 }
