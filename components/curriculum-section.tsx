@@ -63,7 +63,7 @@ const initialModules = [
 export function CurriculumSectionComponent() {
   const [modules, setModules] = useState(initialModules)
 
-  const toggleModule = (index) => {
+  const toggleModule = (index: number) => {
     setModules(prevModules => 
       prevModules.map((module, i) => 
         i === index ? { ...module, expanded: !module.expanded } : module
