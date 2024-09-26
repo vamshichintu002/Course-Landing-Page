@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronDown, ChevronUp, Lock } from 'lucide-react'
+import { ChevronDown, ChevronUp, Lock, Video, Users, FileText } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const initialModules = [
   {
@@ -122,7 +123,14 @@ function Timeline({ modules, toggleModule }: { modules: typeof initialModules; t
   return (
     <div className="relative">
       {modules.map((module, index) => (
-        <TimelineItem key={index} module={module} toggleModule={() => toggleModule(index)} />
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+          <TimelineItem module={module} toggleModule={() => toggleModule(index)} />
+        </motion.div>
       ))}
     </div>
   )
@@ -131,34 +139,63 @@ function Timeline({ modules, toggleModule }: { modules: typeof initialModules; t
 function TimelineItem({ module, toggleModule }: { module: typeof initialModules[number]; toggleModule: () => void }) {
   return (
     <div className="mb-8 relative">
-      <div className="flex items-center mb-2">
-        <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-          {`W${module.week}`}
+      <motion.div
+        className="p-6 bg-white rounded-2xl shadow-md border border-gray-100"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <div className="flex items-center mb-4">
+          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 shadow-md">
+            {`W${module.week}`}
+          </div>
+          <div className="flex-grow">
+            <div className="text-xs text-green-600 font-semibold uppercase tracking-wide">{module.type}</div>
+            <h3 className="text-xl font-bold text-gray-800">{module.title}</h3>
+          </div>
+          <div className="flex items-center space-x-3">
+            {module.lessons.map((lesson, index) => (
+              <LessonBadge key={index} type={lesson.type} count={lesson.count} />
+            ))}
+            <motion.button 
+              onClick={toggleModule}
+              className="p-2 rounded-full hover:bg-blue-100 transition-colors duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label={module.expanded ? "Collapse module" : "Expand module"}
+            >
+              <motion.div
+                animate={{ rotate: module.expanded ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown size={24} className="text-blue-600" />
+              </motion.div>
+            </motion.button>
+          </div>
         </div>
-        <div className="flex-grow">
-          <div className="text-xs text-green-600 font-semibold">{module.type}</div>
-          <h3 className="text-lg font-semibold">{module.title}</h3>
-        </div>
-        <div className="flex items-center space-x-2">
-          {module.lessons.map((lesson: { type: string; count: number }, index: number) => (
-            <LessonBadge key={index} type={lesson.type} count={lesson.count} />
-          ))}
-          <button 
-            onClick={toggleModule}
-            className="p-1 rounded-full hover:bg-blue-100 transition-colors duration-200"
-            aria-label={module.expanded ? "Collapse module" : "Expand module"}
-          >
-            {module.expanded ? <ChevronUp size={20} className="text-blue-600" /> : <ChevronDown size={20} className="text-blue-600" />}
-          </button>
-        </div>
-      </div>
-      {module.expanded && (
-        <div className="ml-16 mt-4 space-y-2">
-          {module.subLessons.map((subLesson: SubLesson, index: number) => (
-            <SubLessonItem key={index} title={subLesson.title} />
-          ))}
-        </div>
-      )}
+        <AnimatePresence>
+          {module.expanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="ml-16 mt-4 space-y-3">
+                {module.subLessons.map((subLesson, index) => (
+                  <SubLessonItem key={index} title={subLesson.title} />
+                ))}
+              </div>
+              <motion.button
+                className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-full font-semibold text-sm shadow-md"
+                whileHover={{ scale: 1.05, backgroundColor: "#f97316" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Watch for free
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   )
 }
@@ -168,21 +205,28 @@ interface SubLesson {
 }
 
 function LessonBadge({ type, count }: { type: string; count: number }) {
-  const bgColor = type === 'live' ? 'bg-red-100' : type === 'video' ? 'bg-gray-200' : 'bg-yellow-100'
-  const textColor = type === 'live' ? 'text-red-600' : type === 'video' ? 'text-gray-600' : 'text-yellow-600'
+  const bgColor = type === 'live' ? 'bg-red-100' : type === 'video' ? 'bg-blue-100' : 'bg-yellow-100'
+  const textColor = type === 'live' ? 'text-red-600' : type === 'video' ? 'text-blue-600' : 'text-yellow-600'
+  const Icon = type === 'live' ? Users : type === 'video' ? Video : FileText
   
   return (
-    <div className={`px-2 py-1 rounded-full text-xs font-semibold ${bgColor} ${textColor}`}>
-      {count} {type === 'live' ? 'LIVE SESSIONS' : type === 'video' ? 'VIDEO LESSONS' : 'ASSIGNMENTS'}
+    <div className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 ${bgColor} ${textColor}`}>
+      <Icon size={14} />
+      <span>{count}</span>
     </div>
   )
 }
 
 function SubLessonItem({ title }: { title: string }) {
   return (
-    <div className="flex items-center space-x-2 text-sm">
+    <motion.div
+      className="flex items-center space-x-3 text-sm"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Lock size={16} className="text-gray-400" />
-      <span className="text-gray-600">{title}</span>
-    </div>
+      <span className="text-gray-700 font-medium">{title}</span>
+    </motion.div>
   )
 }
