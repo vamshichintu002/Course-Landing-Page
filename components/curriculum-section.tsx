@@ -19,8 +19,7 @@ const initialModules = [
     title: "Proprietary Models & Diffusion",
     type: "DIVE STRAIGHT IN THE DEEP END",
     lessons: [
-      { type: "live", count: 3 },
-      { type: "assignment", count: 1 }
+    { type: "assignment", count: 1 }
     ],
     expanded: true,
     subLessons: [
@@ -35,7 +34,7 @@ const initialModules = [
     title: "Intro to Stable Diffusion",
     type: "PROMPTS, PARAMETERS, SCRIPTS & MORE",
     lessons: [
-      { type: "live", count: 1 },
+      
       { type: "video", count: 13 },
       { type: "assignment", count: 1 }
     ],
@@ -51,7 +50,7 @@ const initialModules = [
     title: "Advanced Stable Diffusion",
     type: "IMG2IMG, EXTENSION & INPAINTING",
     lessons: [
-      { type: "live", count: 2 },
+      
       { type: "video", count: 3 },
       { type: "assignment", count: 1 }
     ],
