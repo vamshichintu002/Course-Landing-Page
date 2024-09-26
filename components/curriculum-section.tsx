@@ -104,12 +104,12 @@ export function CurriculumSectionComponent() {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-8 md:py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-2 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center">
           What will you <span className="text-blue-600">learn?</span>
         </h2>
-        <p className="text-center text-gray-600 mb-12">
+        <p className="text-center text-gray-600 mb-8 md:mb-12 text-sm md:text-base">
           The most beginner-friendly curriculum in Generative AI.<br />
           Zero to Pro in 6 months.
         </p>
@@ -138,27 +138,27 @@ function Timeline({ modules, toggleModule }: { modules: typeof initialModules; t
 
 function TimelineItem({ module, toggleModule }: { module: typeof initialModules[number]; toggleModule: () => void }) {
   return (
-    <div className="mb-8 relative">
+    <div className="mb-6 md:mb-8 relative">
       <motion.div
-        className="p-6 bg-white rounded-2xl shadow-md border border-gray-100"
+        className="p-4 md:p-6 bg-white rounded-xl md:rounded-2xl shadow-md border border-gray-100"
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <div className="flex items-center mb-4">
-          <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 shadow-md">
+        <div className="flex flex-col md:flex-row md:items-center mb-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 shadow-md mb-2 md:mb-0">
             {`W${module.week}`}
           </div>
-          <div className="flex-grow">
+          <div className="flex-grow mb-2 md:mb-0">
             <div className="text-xs text-green-600 font-semibold uppercase tracking-wide">{module.type}</div>
-            <h3 className="text-xl font-bold text-gray-800">{module.title}</h3>
+            <h3 className="text-lg md:text-xl font-bold text-gray-800">{module.title}</h3>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-wrap items-center space-x-2 md:space-x-3">
             {module.lessons.map((lesson, index) => (
               <LessonBadge key={index} type={lesson.type} count={lesson.count} />
             ))}
             <motion.button 
               onClick={toggleModule}
-              className="p-2 rounded-full hover:bg-blue-100 transition-colors duration-200"
+              className="p-2 rounded-full hover:bg-blue-100 transition-colors duration-200 mt-2 md:mt-0"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label={module.expanded ? "Collapse module" : "Expand module"}
@@ -167,7 +167,7 @@ function TimelineItem({ module, toggleModule }: { module: typeof initialModules[
                 animate={{ rotate: module.expanded ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <ChevronDown size={24} className="text-blue-600" />
+                <ChevronDown size={20} className="text-blue-600" />
               </motion.div>
             </motion.button>
           </div>
@@ -180,13 +180,13 @@ function TimelineItem({ module, toggleModule }: { module: typeof initialModules[
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="ml-16 mt-4 space-y-3">
+              <div className="ml-0 md:ml-16 mt-4 space-y-3">
                 {module.subLessons.map((subLesson, index) => (
                   <SubLessonItem key={index} title={subLesson.title} />
                 ))}
               </div>
               <motion.button
-                className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-full font-semibold text-sm shadow-md"
+                className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-full font-semibold text-sm shadow-md w-full md:w-auto"
                 whileHover={{ scale: 1.05, backgroundColor: "#f97316" }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -206,8 +206,8 @@ function LessonBadge({ type, count }: { type: string; count: number }) {
   const Icon = type === 'live' ? Users : type === 'video' ? Video : FileText
   
   return (
-    <div className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 ${bgColor} ${textColor}`}>
-      <Icon size={14} />
+    <div className={`px-2 md:px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 ${bgColor} ${textColor} mb-1 md:mb-0`}>
+      <Icon size={12} />
       <span>{count}</span>
     </div>
   )
@@ -216,12 +216,12 @@ function LessonBadge({ type, count }: { type: string; count: number }) {
 function SubLessonItem({ title }: { title: string }) {
   return (
     <motion.div
-      className="flex items-center space-x-3 text-sm"
+      className="flex items-center space-x-3 text-xs md:text-sm"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Lock size={16} className="text-gray-400" />
+      <Lock size={14} className="text-gray-400" />
       <span className="text-gray-700 font-medium">{title}</span>
     </motion.div>
   )
