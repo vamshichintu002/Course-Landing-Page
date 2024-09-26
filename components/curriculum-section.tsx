@@ -87,7 +87,7 @@ export function CurriculumSectionComponent() {
   )
 }
 
-function Timeline({ modules, toggleModule }) {
+function Timeline({ modules, toggleModule }: { modules: typeof initialModules; toggleModule: (index: number) => void }) {
   return (
     <div className="relative">
       {modules.map((module, index) => (
@@ -97,7 +97,7 @@ function Timeline({ modules, toggleModule }) {
   )
 }
 
-function TimelineItem({ module, toggleModule }) {
+function TimelineItem({ module, toggleModule }: { module: typeof initialModules[number]; toggleModule: () => void }) {
   return (
     <div className="mb-8 relative">
       <div className="flex items-center mb-2">
@@ -109,7 +109,7 @@ function TimelineItem({ module, toggleModule }) {
           <h3 className="text-lg font-semibold">{module.title}</h3>
         </div>
         <div className="flex items-center space-x-2">
-          {module.lessons.map((lesson, index) => (
+          {module.lessons.map((lesson: { type: string; count: number }, index: number) => (
             <LessonBadge key={index} type={lesson.type} count={lesson.count} />
           ))}
           <button 
@@ -123,7 +123,7 @@ function TimelineItem({ module, toggleModule }) {
       </div>
       {module.expanded && (
         <div className="ml-16 mt-4 space-y-2">
-          {module.subLessons.map((subLesson, index) => (
+          {module.subLessons.map((subLesson: { title: string; type: string }, index: number) => (
             <SubLessonItem key={index} title={subLesson.title} type={subLesson.type} />
           ))}
         </div>
@@ -132,7 +132,7 @@ function TimelineItem({ module, toggleModule }) {
   )
 }
 
-function LessonBadge({ type, count }) {
+function LessonBadge({ type, count }: { type: string; count: number }) {
   const bgColor = type === 'live' ? 'bg-red-100' : type === 'video' ? 'bg-gray-200' : 'bg-yellow-100'
   const textColor = type === 'live' ? 'text-red-600' : type === 'video' ? 'text-gray-600' : 'text-yellow-600'
   
@@ -143,7 +143,7 @@ function LessonBadge({ type, count }) {
   )
 }
 
-function SubLessonItem({ title, type }) {
+function SubLessonItem({ title, type }: { title: string; type: string }) {
   return (
     <div className="flex items-center space-x-2 text-sm">
       <Lock size={16} className="text-gray-400" />
