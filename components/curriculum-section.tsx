@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronDown, ChevronUp, Lock, Video, Users, FileText } from 'lucide-react'
+import { ChevronDown, Lock, Video, Users, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const initialModules = [
@@ -198,10 +198,6 @@ function TimelineItem({ module, toggleModule }: { module: typeof initialModules[
       </motion.div>
     </div>
   )
-}
-
-interface SubLesson {
-    title: string; // Removed 'type'
 }
 
 function LessonBadge({ type, count }: { type: string; count: number }) {
