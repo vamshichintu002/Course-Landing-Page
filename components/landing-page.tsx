@@ -260,7 +260,7 @@ export function LandingPageComponent() {
           </div>
         </section>
 
-        <AnimatedAdoptionLifecycleChart />
+   
 
        
 
