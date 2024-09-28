@@ -1,3 +1,5 @@
+'use client';  // Add this line at the top of the file
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSpring, animated, config } from 'react-spring';
 
