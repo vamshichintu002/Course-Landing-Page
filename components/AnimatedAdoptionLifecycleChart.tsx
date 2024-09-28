@@ -7,6 +7,7 @@ const AnimatedAdoptionLifecycleChart: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    console.log('AnimatedAdoptionLifecycleChart mounted');
     setIsClient(true);
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -37,9 +38,11 @@ const AnimatedAdoptionLifecycleChart: React.FC = () => {
   });
 
   if (!isClient) {
+    console.log('Rendering placeholder');
     return <div className="w-full h-[300px] md:h-[400px] bg-gray-200"></div>;
   }
 
+  console.log('Rendering chart');
   return (
     <div className="relative w-full h-[300px] md:h-[400px] bg-gray-100 overflow-hidden">
       <svg viewBox={isMobile ? "0 0 400 400" : "0 0 800 400"} className="w-full h-full">

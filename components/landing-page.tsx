@@ -11,6 +11,7 @@ import { CurriculumSectionComponent } from './curriculum-section'
 import { TypeAnimation } from 'react-type-animation'  // Add this import
 import Link from 'next/link'
 import styles from './LandingPage.module.css'
+import { motion } from 'framer-motion'
 
 const AnimatedAdoptionLifecycleChart = dynamic(
   () => import('./AnimatedAdoptionLifecycleChart'),
@@ -41,6 +42,12 @@ export function LandingPageComponent() {
     "How does this course prepare me for the AI industry job market?",
     "How long does the course last?"
   ]
+
+  // Add this function inside your LandingPageComponent, before the return statement
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -135,27 +142,65 @@ export function LandingPageComponent() {
           </div>
         </section>
 
-        <section className="bg-gray-100 py-10 md:py-20">
+        <section className="bg-gray-100 py-8 md:py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Be a pioneer. Build the future.</h2>
-            <Suspense fallback={<div className="w-full h-[300px] md:h-[400px] bg-gray-200 animate-pulse"></div>}>
+            <motion.h2 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12"
+            >
+              Be a <span className="text-blue-600">pioneer</span>. Build the <span className="text-blue-600">future</span>.
+            </motion.h2>
+            <Suspense fallback={<div className="w-full h-[250px] md:h-[400px] bg-gray-200 animate-pulse"></div>}>
               <AnimatedAdoptionLifecycleChart />
             </Suspense>
-            <div className="flex flex-wrap justify-between items-center mt-8 md:mt-12">
-              <div className="w-full md:w-1/2 space-y-6 md:space-y-8">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2">Transformative Technology</h3>
-                  <p className="text-sm md:text-base">Generative AI is at the forefront of the next technological revolution, reshaping industries from healthcare to entertainment.</p>
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2">High Demand Skills</h3>
-                  <p className="text-sm md:text-base">As AI continues to advance, the demand for skilled professionals in this field is skyrocketing.</p>
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2">Future-Proof Career</h3>
-                  <p className="text-sm md:text-base">Gain skills that are not just in demand today but will be essential in the technologically advanced future.</p>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-12">
+              {[
+                {
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  ),
+                  title: "The Next Tech Revolution",
+                  description: "Generative AI is reshaping industries from healthcare to entertainment."
+                },
+                {
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  ),
+                  title: "High Demand, High Reward",
+                  description: "Demand for skilled AI professionals is skyrocketing."
+                },
+                {
+                  icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  ),
+                  title: "Future-Proof Your Career",
+                  description: "Gain skills essential for the technologically advanced future."
+                }
+              ].map((card, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: index * 0.2 }}
+                  whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                  className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-xl transition-all duration-300 flex flex-col"
+                >
+                  <div className="text-blue-600 text-2xl md:text-3xl mb-3 md:mb-4">
+                    {card.icon}
+                  </div>
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 text-blue-600">{card.title}</h3>
+                  <p className="text-gray-600 text-sm md:text-base">{card.description}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

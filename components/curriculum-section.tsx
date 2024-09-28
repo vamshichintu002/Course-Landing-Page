@@ -182,8 +182,7 @@ export function CurriculumSectionComponent() {
               1000,
               'create',
               1000,
-              'achieve',
-              1000,
+             
             ]}
             wrapper="span"
             speed={50}
