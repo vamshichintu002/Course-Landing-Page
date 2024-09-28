@@ -1,0 +1,14 @@
+.curriculum-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.curriculum-section li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.curriculum-section li svg {
+  margin-right: 10px;
+}
