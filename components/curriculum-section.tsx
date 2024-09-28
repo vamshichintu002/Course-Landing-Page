@@ -174,7 +174,7 @@ export function CurriculumSectionComponent() {
   return (
     <section className="py-8 md:py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center">
           What you will {' '}
           <TypeAnimation
             sequence={[
@@ -193,45 +193,10 @@ export function CurriculumSectionComponent() {
           />
           <span className="text-blue-600">?</span>
         </h2>
-        <motion.div 
-          className="text-center mb-8 md:mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <p className="text-lg md:text-xl font-semibold text-gray-800 mb-2">
-            The most beginner-friendly curriculum in Generative AI.
-          </p>
-          <div className="flex items-center justify-center space-x-2">
-            <motion.span 
-              className="text-2xl md:text-3xl font-bold text-blue-600"
-              initial={{ scale: 0.5 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              Zero
-            </motion.span>
-            <motion.span 
-              className="text-gray-400"
-              initial={{ width: 0 }}
-              animate={{ width: '50px' }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-              <div className="h-0.5 bg-gray-400"></div>
-            </motion.span>
-            <motion.span 
-              className="text-2xl md:text-3xl font-bold text-green-600"
-              initial={{ scale: 0.5 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-            >
-              Pro
-            </motion.span>
-          </div>
-          <p className="text-sm md:text-base text-gray-600 mt-2">
-            in just <span className="font-bold text-orange-500">6 months</span>
-          </p>
-        </motion.div>
+        <p className="text-center text-gray-600 mb-8 md:mb-12 text-sm md:text-base">
+          The most beginner-friendly curriculum in Generative AI.<br />
+          Zero to Pro in 6 months.
+        </p>
         <Timeline modules={modules} toggleModule={toggleModule} />
       </div>
     </section>

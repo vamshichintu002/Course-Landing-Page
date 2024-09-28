@@ -1,5 +1,11 @@
-import { CurriculumSectionComponent } from "@/components/curriculum-section"
+import { LandingPageComponent } from "@/components/landing-page"
+
 
 export default function Page() {
-  return <CurriculumSectionComponent />
+  return (
+    <>
+      <LandingPageComponent />
+    
+    </>
+  )
 }
