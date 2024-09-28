@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
 const AnimatedAdoptionLifecycleChart = () => {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const curveAnimation = useSpring({
     from: { strokeDashoffset: 1000 },
@@ -17,21 +27,21 @@ const AnimatedAdoptionLifecycleChart = () => {
   });
 
   const categories = [
-    { name: 'Innovators', percentage: '2.5%', x: 70, color: '#003366' },
-    { name: 'Early Adopters', percentage: '13.5%', x: 200, color: '#0066cc' },
-    { name: 'Early Majority', percentage: '34%', x: 400, color: '#3399ff' },
-    { name: 'Late Majority', percentage: '34%', x: 600, color: '#66b3ff' },
-    { name: 'Laggards', percentage: '16%', x: 730, color: '#b3d9ff' },
+    { name: 'Innovators', percentage: '2.5%', x: isMobile ? 35 : 70, color: '#003366' },
+    { name: 'Early Adopters', percentage: '13.5%', x: isMobile ? 100 : 200, color: '#0066cc' },
+    { name: 'Early Majority', percentage: '34%', x: isMobile ? 200 : 400, color: '#3399ff' },
+    { name: 'Late Majority', percentage: '34%', x: isMobile ? 300 : 600, color: '#66b3ff' },
+    { name: 'Laggards', percentage: '16%', x: isMobile ? 365 : 730, color: '#b3d9ff' },
   ];
 
   return (
-    <div className="relative w-full h-[400px] bg-gray-100">
-      <svg viewBox="0 0 800 400" className="w-full h-full">
+    <div className="relative w-full h-[300px] md:h-[400px] bg-gray-100 overflow-hidden">
+      <svg viewBox={isMobile ? "0 0 400 400" : "0 0 800 400"} className="w-full h-full">
         <animated.path
-          d="M50 350 Q 200 350, 250 200 T 400 50 T 550 200 T 750 350"
+          d={isMobile ? "M25 350 Q 100 350, 125 200 T 200 50 T 275 200 T 375 350" : "M50 350 Q 200 350, 250 200 T 400 50 T 550 200 T 750 350"}
           fill="none"
           stroke="#0066cc"
-          strokeWidth="3"
+          strokeWidth={isMobile ? 2 : 3}
           style={{
             ...curveAnimation,
             strokeDasharray: 1000,
@@ -41,7 +51,10 @@ const AnimatedAdoptionLifecycleChart = () => {
         {categories.map((category, index) => (
           <animated.g key={category.name} style={fadeIn}>
             <path
-              d={`M50 350 Q 200 350, 250 200 T ${category.x} ${index === 2 ? 50 : 350}`}
+              d={isMobile ? 
+                `M25 350 Q 100 350, 125 200 T ${category.x} ${index === 2 ? 50 : 350}` :
+                `M50 350 Q 200 350, 250 200 T ${category.x} ${index === 2 ? 50 : 350}`
+              }
               fill={category.color}
               opacity={hoveredCategory === category.name ? 0.9 : 0.7}
             />
@@ -49,7 +62,7 @@ const AnimatedAdoptionLifecycleChart = () => {
               x={category.x}
               y={380}
               textAnchor="middle"
-              fontSize="14"
+              fontSize={isMobile ? 10 : 14}
               fill="#333333"
             >
               {category.name}
@@ -58,16 +71,16 @@ const AnimatedAdoptionLifecycleChart = () => {
               x={category.x}
               y={340}
               textAnchor="middle"
-              fontSize="14"
+              fontSize={isMobile ? 10 : 14}
               fill="#ffffff"
               fontWeight="bold"
             >
               {category.percentage}
             </text>
             <rect
-              x={category.x - 50}
+              x={category.x - (isMobile ? 25 : 50)}
               y={0}
-              width={100}
+              width={isMobile ? 50 : 100}
               height={400}
               fill="transparent"
               onMouseEnter={() => setHoveredCategory(category.name)}
@@ -77,10 +90,10 @@ const AnimatedAdoptionLifecycleChart = () => {
         ))}
 
         <animated.text
-          x="400"
+          x={isMobile ? "200" : "400"}
           y="30"
           textAnchor="middle"
-          fontSize="24"
+          fontSize={isMobile ? 18 : 24}
           fill="#333333"
           fontWeight="bold"
           style={fadeIn}
@@ -93,12 +106,13 @@ const AnimatedAdoptionLifecycleChart = () => {
         style={{
           ...fadeIn,
           position: 'absolute',
-          top: '20%',
-          left: '25%',
+          top: isMobile ? '15%' : '20%',
+          left: isMobile ? '15%' : '25%',
           backgroundColor: '#0066cc',
           color: 'white',
-          padding: '10px',
+          padding: isMobile ? '5px' : '10px',
           borderRadius: '5px',
+          fontSize: isMobile ? '12px' : '16px',
         }}
       >
         You&apos;re Here!

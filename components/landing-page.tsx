@@ -36,10 +36,10 @@ export function LandingPageComponent() {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Image
-              src="/logo.png"  // Changed from "/my-app/public/logo.png" to "/logo.png"
+              src="/logo.png"
               alt="Devtern Logo"
-              width={150}  // Adjust this value based on your logo's dimensions
-              height={50}  // Adjust this value based on your logo's dimensions
+              width={100}
+              height={33}
               className="mr-2"
             />
           </div>
@@ -78,43 +78,43 @@ export function LandingPageComponent() {
       </header>
 
       <main>
-        <section className="container mx-auto px-4 py-20 text-center relative overflow-hidden">
+        <section className="container mx-auto px-4 py-10 md:py-20 text-center relative overflow-hidden">
           <div className="relative z-10">
-            <h1 className="text-6xl font-bold mb-8">
+            <h1 className="text-4xl md:text-6xl font-bold mb-8">
               GenAi-Powered{' '}
               <span className="text-blue-600">
                 <TypeAnimation
                   sequence={[
                     'Full Stack Web Development',
                     1000,
-                    'AI-Driven Web Solutions',
+                    'AI-Driven Web Apps',
                     1000,
-                    'Next-Gen Web Applications',
+                    'Next-Gen Web Apps',
                     1000,
                   ]}
                   wrapper="span"
                   speed={50}
-                  repeat={Infinity}
+                  repeat={0}
                 />
               </span>
             </h1>
-            <div className="font-mono text-lg mb-8 space-y-2">
+            <div className="font-mono text-sm md:text-lg mb-8 space-y-2">
               <p>{'>'} Are you dreaming of creating your own web applications but don&apos;t know how to code?</p>
               <p>{'>'} No experience in frontend or backend development?</p>
               <p>{'>'} Feeling stuck on how to turn ideas into real-world projects?</p>
             </div>
-            <p className="text-xl font-mono mb-8 text-blue-600">
+            <p className="text-lg md:text-xl font-mono mb-8 text-blue-600">
               &gt; Next Cohort Starts 4th October
             </p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4">
+            <button className="bg-blue-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4">
               Enroll Now
             </button>
             <div>
-              <button className="bg-black text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition duration-300">
+              <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-gray-800 transition duration-300">
                 Join Free Masterclass
               </button>
             </div>
-            <p className="mt-4 text-gray-600 font-mono">
+            <p className="mt-4 text-sm md:text-base text-gray-600 font-mono">
               Webinar Date - 29th September, Sunday
             </p>
           </div>
@@ -123,30 +123,30 @@ export function LandingPageComponent() {
           </div>
         </section>
 
-        <section className="bg-gray-100 py-20">
+        <section className="bg-gray-100 py-10 md:py-20">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-12">Be a pioneer. Build the future.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Be a pioneer. Build the future.</h2>
             <AnimatedAdoptionLifecycleChart />
-            <div className="flex flex-wrap justify-between items-center mt-12">
-              <div className="w-full md:w-1/2 space-y-8">
+            <div className="flex flex-wrap justify-between items-center mt-8 md:mt-12">
+              <div className="w-full md:w-1/2 space-y-6 md:space-y-8">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-2">Transformative Technology</h3>
-                  <p>Generative AI is at the forefront of the next technological revolution, reshaping industries from healthcare to entertainment.</p>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-2">Transformative Technology</h3>
+                  <p className="text-sm md:text-base">Generative AI is at the forefront of the next technological revolution, reshaping industries from healthcare to entertainment.</p>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold mb-2">High Demand Skills</h3>
-                  <p>As AI continues to advance, the demand for skilled professionals in this field is skyrocketing.</p>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-2">High Demand Skills</h3>
+                  <p className="text-sm md:text-base">As AI continues to advance, the demand for skilled professionals in this field is skyrocketing.</p>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold mb-2">Future-Proof Career</h3>
-                  <p>Gain skills that are not just in demand today but will be essential in the technologically advanced future.</p>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-2">Future-Proof Career</h3>
+                  <p className="text-sm md:text-base">Gain skills that are not just in demand today but will be essential in the technologically advanced future.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-20">
+        <section className="py-10 md:py-20">
           <div className="container mx-auto px-4">
             <WhoIsThisFor />
           </div>
@@ -154,9 +154,9 @@ export function LandingPageComponent() {
 
         <CurriculumSectionComponent />
 
-        <section className="bg-gray-100 py-20">
+        <section className="bg-gray-100 py-10 md:py-20">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-12">You'll have questions!</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">You'll have questions!</h2>
             <div className="space-y-4">
               {questions.map((question, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-md">
@@ -164,7 +164,7 @@ export function LandingPageComponent() {
                     className="w-full text-left p-4 flex justify-between items-center focus:outline-none"
                     onClick={() => toggleQuestion(index)}
                   >
-                    <span>{question}</span>
+                    <span className="text-sm md:text-base">{question}</span>
                     <ChevronDownIcon
                       className={`w-5 h-5 transition-transform ${
                         activeQuestion === index ? 'transform rotate-180' : ''
@@ -173,7 +173,7 @@ export function LandingPageComponent() {
                   </button>
                   {activeQuestion === index && (
                     <div className="p-4 border-t">
-                      <p>This is a placeholder answer for the question. Replace this with the actual answer.</p>
+                      <p className="text-sm md:text-base">This is a placeholder answer for the question. Replace this with the actual answer.</p>
                     </div>
                   )}
                 </div>
@@ -185,9 +185,9 @@ export function LandingPageComponent() {
 
       <footer className="bg-blue-600 text-white py-8">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-2xl font-bold mb-4">Be a part of a new era in programming.</p>
-          <p className="text-2xl font-bold mb-8">Be a 100x Engineer!</p>
-          <button className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300">
+          <p className="text-xl md:text-2xl font-bold mb-4">Be a part of a new era in programming.</p>
+          <p className="text-xl md:text-2xl font-bold mb-8">Be a 100x Engineer!</p>
+          <button className="bg-white text-blue-600 px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-gray-100 transition duration-300">
             Enroll Now
           </button>
         </div>
