@@ -99,9 +99,9 @@ export function LandingPageComponent() {
               </span>
             </h1>
             <div className="font-mono text-lg mb-8 space-y-2">
-              <p>> Are you dreaming of creating your own web applications but don't know how to code?</p>
-              <p>> No experience in frontend or backend development?</p>
-              <p>> Feeling stuck on how to turn ideas into real-world projects?</p>
+              <p>{'>'} Are you dreaming of creating your own web applications but don't know how to code?</p>
+              <p>{'>'} No experience in frontend or backend development?</p>
+              <p>{'>'} Feeling stuck on how to turn ideas into real-world projects?</p>
             </div>
             <p className="text-xl font-mono mb-8 text-blue-600">
               &gt; Next Cohort Starts 4th October
