@@ -101,7 +101,7 @@ const AnimatedAdoptionLifecycleChart = () => {
           borderRadius: '5px',
         }}
       >
-        You're Here!
+        You&apos;re Here!
       </animated.div>
     </div>
   );
