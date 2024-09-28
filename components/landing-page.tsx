@@ -99,7 +99,7 @@ export function LandingPageComponent() {
               </span>
             </h1>
             <div className="font-mono text-lg mb-8 space-y-2">
-              <p>{'>'} Are you dreaming of creating your own web applications but don't know how to code?</p>
+              <p>{'>'} Are you dreaming of creating your own web applications but don&apos;t know how to code?</p>
               <p>{'>'} No experience in frontend or backend development?</p>
               <p>{'>'} Feeling stuck on how to turn ideas into real-world projects?</p>
             </div>
