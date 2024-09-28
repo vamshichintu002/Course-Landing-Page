@@ -4,9 +4,21 @@ import { useState } from 'react'
 import { ChevronDownIcon, Menu } from 'lucide-react'
 import Image from 'next/image'
 import { WhoIsThisFor } from './who-is-this-for'
-import AnimatedAdoptionLifecycleChart from './AnimatedAdoptionLifecycleChart'
+import { TailoredTracks } from './tailored-tracks'  // Add this import
+import dynamic from 'next/dynamic'
+import React, { Suspense } from 'react'
 import { CurriculumSectionComponent } from './curriculum-section'
 import { TypeAnimation } from 'react-type-animation'  // Add this import
+import Link from 'next/link'
+import styles from './LandingPage.module.css'
+
+const AnimatedAdoptionLifecycleChart = dynamic(
+  () => import('./AnimatedAdoptionLifecycleChart'),
+  {
+    loading: () => <div className="w-full h-[300px] md:h-[400px] bg-gray-200 animate-pulse"></div>,
+    ssr: false
+  }
+)
 
 export function LandingPageComponent() {
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null)
@@ -38,8 +50,8 @@ export function LandingPageComponent() {
             <Image
               src="/logo.png"
               alt="Devtern Logo"
-              width={100}
-              height={33}
+              width={160}
+              height={100}
               className="mr-2"
             />
           </div>
@@ -126,7 +138,9 @@ export function LandingPageComponent() {
         <section className="bg-gray-100 py-10 md:py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Be a pioneer. Build the future.</h2>
-            <AnimatedAdoptionLifecycleChart />
+            <Suspense fallback={<div className="w-full h-[300px] md:h-[400px] bg-gray-200 animate-pulse"></div>}>
+              <AnimatedAdoptionLifecycleChart />
+            </Suspense>
             <div className="flex flex-wrap justify-between items-center mt-8 md:mt-12">
               <div className="w-full md:w-1/2 space-y-6 md:space-y-8">
                 <div>
@@ -149,6 +163,12 @@ export function LandingPageComponent() {
         <section className="py-10 md:py-20">
           <div className="container mx-auto px-4">
             <WhoIsThisFor />
+          </div>
+        </section>
+
+        <section className="py-10 md:py-20">
+          <div className="container mx-auto px-4">
+            <TailoredTracks />
           </div>
         </section>
 

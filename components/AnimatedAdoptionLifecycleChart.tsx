@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSpring, animated } from 'react-spring';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSpring, animated, config } from 'react-spring';
 
-const AnimatedAdoptionLifecycleChart = () => {
+const AnimatedAdoptionLifecycleChart: React.FC = () => {
+  const [isClient, setIsClient] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -14,25 +16,29 @@ const AnimatedAdoptionLifecycleChart = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const curveAnimation = useSpring({
-    from: { strokeDashoffset: 1000 },
-    to: { strokeDashoffset: 0 },
-    config: { duration: 2000 },
-  });
-
-  const fadeIn = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    config: { duration: 1000 },
-  });
-
-  const categories = [
+  const categories = useMemo(() => [
     { name: 'Innovators', percentage: '2.5%', x: isMobile ? 35 : 70, color: '#003366' },
     { name: 'Early Adopters', percentage: '13.5%', x: isMobile ? 100 : 200, color: '#0066cc' },
     { name: 'Early Majority', percentage: '34%', x: isMobile ? 200 : 400, color: '#3399ff' },
     { name: 'Late Majority', percentage: '34%', x: isMobile ? 300 : 600, color: '#66b3ff' },
     { name: 'Laggards', percentage: '16%', x: isMobile ? 365 : 730, color: '#b3d9ff' },
-  ];
+  ], [isMobile]);
+
+  const curveAnimation = useSpring({
+    strokeDashoffset: isClient ? 0 : 1000,
+    from: { strokeDashoffset: 1000 },
+    config: { ...config.slow, duration: 2000 },
+  });
+
+  const fadeIn = useSpring({
+    opacity: isClient ? 1 : 0,
+    from: { opacity: 0 },
+    config: { duration: 1000 },
+  });
+
+  if (!isClient) {
+    return <div className="w-full h-[300px] md:h-[400px] bg-gray-200"></div>;
+  }
 
   return (
     <div className="relative w-full h-[300px] md:h-[400px] bg-gray-100 overflow-hidden">
@@ -121,4 +127,4 @@ const AnimatedAdoptionLifecycleChart = () => {
   );
 };
 
-export default AnimatedAdoptionLifecycleChart;
+export default React.memo(AnimatedAdoptionLifecycleChart);
