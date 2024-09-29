@@ -13,6 +13,8 @@ import Link from 'next/link'
 import styles from './LandingPage.module.css'
 import { motion, Variants } from 'framer-motion'
 import TechStackCarousel from './TechStackCarousel'  // Add this import
+import { Card, CardContent } from "@/components/ui/card"
+import { ChevronRight } from "lucide-react"
 
 const AnimatedAdoptionLifecycleChart = dynamic(
   () => import('./AnimatedAdoptionLifecycleChart'),
@@ -33,6 +35,13 @@ export function LandingPageComponent() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const questions = [
     "What is Generative AI and how is it used?",
@@ -55,67 +64,124 @@ export function LandingPageComponent() {
     animate: { opacity: 1, y: 0 }
   };
 
-  return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="Devtern Logo"
-              width={160}
-              height={100}
-              className="mr-2"
-            />
-          </div>
-          <nav className="hidden md:flex space-x-6">
-            <a href="#" className="hover:text-blue-600">Overview</a>
-            <a href="#" className="hover:text-blue-600">Mentors</a>
-            <a href="#" className="hover:text-blue-600">Curriculum</a>
-            <a href="#" className="hover:text-blue-600">FAQs</a>
-            <a href="#" className="hover:text-blue-600">About Us</a>
-            <a href="#" className="hover:text-blue-600">Contact Us</a>
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">
-              Enroll Now
-            </button>
-          </nav>
-          <button className="md:hidden" onClick={toggleMenu}>
-            <Menu />
-          </button>
-        </div>
-        {isMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="mt-4 md:hidden"
-          >
-            <ul className="space-y-2">
-              <li><a href="#" className="block py-2 hover:text-blue-600">Overview</a></li>
-              <li><a href="#" className="block py-2 hover:text-blue-600">Mentors</a></li>
-              <li><a href="#" className="block py-2 hover:text-blue-600">Curriculum</a></li>
-              <li><a href="#" className="block py-2 hover:text-blue-600">FAQs</a></li>
-              <li><a href="#" className="block py-2 hover:text-blue-600">About Us</a></li>
-              <li><a href="#" className="block py-2 hover:text-blue-600">Contact Us</a></li>
-              <li>
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 w-full">
-                  Enroll Now
-                </button>
-              </li>
-            </ul>
-          </motion.nav>
-        )}
-      </header>
+  const buttonVariants = {
+    hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)" },
+    tap: { scale: 0.95 }
+  };
 
-      <main>
+  return (
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <motion.header 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        className="bg-white shadow-md sticky top-0 z-50"
+      >
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <motion.button 
+              onClick={() => window.location.reload()} 
+              className="flex items-center focus:outline-none"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image
+                src="/logo.png"
+                alt="Devtern Logo"
+                width={120}
+                height={75}
+                className="mr-2"
+              />
+            </motion.button>
+            <nav className="hidden md:flex space-x-6">
+              {['overview', 'curriculum', 'FAQs'].map((item) => (
+                <motion.button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className="text-gray-600 hover:text-blue-600 transition duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {item === 'FAQs' ? item : item.charAt(0).toUpperCase() + item.slice(1)}
+                </motion.button>
+              ))}
+              <motion.button 
+                onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")}
+                className="text-gray-600 hover:text-blue-600 transition duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Contact Us
+              </motion.button>
+              <motion.button 
+                className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Enroll Now
+              </motion.button>
+            </nav>
+            <motion.button 
+              className="md:hidden"
+              onClick={toggleMenu}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Menu />
+            </motion.button>
+          </div>
+          {isMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mt-4 md:hidden"
+            >
+              <ul className="space-y-2">
+                <li><button onClick={() => scrollToSection('overview')} className="block py-2 hover:text-blue-600">Overview</button></li>
+                <li><button onClick={() => scrollToSection('curriculum')} className="block py-2 hover:text-blue-600">Curriculum</button></li>
+                <li><button onClick={() => scrollToSection('faqs')} className="block py-2 hover:text-blue-600">FAQs</button></li>
+                <li><button 
+                  onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")} 
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Contact Us
+                </button></li>
+                <li>
+                  <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 w-full">
+                    Enroll Now
+                  </button>
+                </li>
+              </ul>
+            </motion.nav>
+          )}
+        </div>
+      </motion.header>
+
+      <main className="flex-grow">
         <motion.section
-          initial="initial"
-          animate="animate"
-          variants={fadeInUp}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
           className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 py-20 md:py-32"
         >
+          {/* Remove this motion.div containing the Image component */}
+          {/* <motion.div 
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            <Image
+              src="/background-pattern.svg"
+              alt="Background Pattern"
+              layout="fill"
+              objectFit="cover"
+              className="opacity-10"
+            />
+          </motion.div> */}
           <div className="container mx-auto px-4 text-center relative z-10">
             <motion.h1
               variants={fadeInUp}
@@ -156,15 +222,13 @@ export function LandingPageComponent() {
               &gt; Next Cohort Starts 4th October
             </motion.p>
             <motion.div
-              variants={fadeInUp}
-              transition={{ duration: 0.6 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
             >
               <button className="bg-blue-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4 mr-4">
               Enroll Now
             </button>
-              <button className="bg-black text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-gray-800 transition duration-300">
-                Join Free Masterclass
-              </button>
             </motion.div>
             <motion.p
               variants={fadeInUp}
@@ -237,7 +301,7 @@ export function LandingPageComponent() {
                   whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                   className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
-                  <div className="text-blue-600 text-2xl md:text-3xl mb-3 md:mb-4">
+                  <div className="text-blue-600 text-2xl md:text-2xl mb-3 md:mb-4">
                     {card.icon}
                   </div>
                   <h3 className="text-lg md:text-xl font-semibold mb-2 text-blue-600">{card.title}</h3>
@@ -248,25 +312,34 @@ export function LandingPageComponent() {
           </div>
         </section>
 
-        <section className="py-10 md:py-20">
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          id="overview"
+          className="py-10 md:py-20 bg-gray-50"
+        >
           <div className="container mx-auto px-4">
             <WhoIsThisFor />
           </div>
-        </section>
-
-        <section className="py-10 md:py-20">
-          <div className="container mx-auto px-4">
-            <TailoredTracks />
-          </div>
-        </section>
-
-   
-
-       
-
-        <CurriculumSectionComponent />
+        </motion.section>
 
         <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          id="curriculum"
+          className="py-10 md:py-20"
+        >
+          <div className="container mx-auto px-4">
+            <CurriculumSectionComponent />
+          </div>
+        </motion.section>
+
+        <TailoredTracks />
+
+        <motion.section
+          id="faqs"
           initial="initial"
           animate="animate"
           variants={fadeInUp}
@@ -345,23 +418,136 @@ export function LandingPageComponent() {
         </motion.section>
       </main>
 
-      <footer className="bg-gradient-to-br from-blue-100 to-purple-100 text-gray-800 py-12 border-t border-gray-200">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="py-12 md:py-24 relative overflow-hidden"
+      >
+        <Card className="bg-blue-600 text-white overflow-hidden relative max-w-4xl mx-auto">
+          <CardContent className="p-6 md:p-8">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
+              <div className="space-y-4 md:space-y-6 max-w-lg w-full md:w-auto">
+                <motion.h2 
+                  className="text-3xl md:text-4xl font-bold text-center md:text-left"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                >
+                  Be a part of a <span className="text-black">new era</span> in programming.
+                </motion.h2>
+                <motion.p 
+                  className="text-xl md:text-2xl font-semibold text-center md:text-left"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <span className="font-mono text-base md:text-lg mb-4 md:mb-8 space-y-2 block">
+                    Turn Ideas into <span className="font-bold text-black">Web Apps – No Code, Just AI</span>
+                  </span>
+                </motion.p>
+                <ul className="space-y-2 mb-6 md:mb-0">
+                  {[
+                    "Master Generative AI",
+                    "Build cutting-edge applications",
+                    "Transform your career",
+                    "Join a community of innovators"
+                  ].map((item, index) => (
+                    <motion.li 
+                      key={index} 
+                      className="flex items-center space-x-2"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
+                    >
+                      <ChevronRight className="h-4 w-4 md:h-5 md:w-5 text-black flex-shrink-0" />
+                      <span className="text-sm md:text-base">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+                <motion.div
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.3 }}
+                  className="flex justify-center md:justify-start"
+                >
+                  <button className="bg-white text-blue-600 px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-100 transition duration-300 shadow-lg">
+                    Enroll Now
+                  </button>
+                </motion.div>
+              </div>
+              <div className="relative w-48 h-48 md:w-64 md:h-64 mt-8 md:mt-0">
+                <motion.div 
+                  className="absolute inset-0"
+                  initial={{ opacity: 0, rotate: -30 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  transition={{ delay: 0.5, duration: 1 }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+                    <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+                    {[
+                      { cx: 100, cy: 20, icon: "🚀" },
+                      { cx: 180, cy: 100, icon: "💡" },
+                      { cx: 140, cy: 160, icon: "🌟" },
+                      { cx: 60, cy: 160, icon: "🔧" },
+                      { cx: 20, cy: 100, icon: "🧠" },
+                    ].map((item, index) => (
+                      <motion.g 
+                        key={index}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1 + index * 0.1, duration: 0.3 }}
+                      >
+                        <circle cx={item.cx} cy={item.cy} r="15" fill="white" />
+                        <text x={item.cx} y={item.cy} textAnchor="middle" dominantBaseline="central" fontSize="15">
+                          {item.icon}
+                        </text>
+                      </motion.g>
+                    ))}
+                  </svg>
+                </motion.div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.section>
+
+      <footer className="bg-gray-900 text-white py-6">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center">
-            <Image
-              src="/logo.png"
-              alt="Devtern Logo"
-              width={140}
-              height={87}
-              className="mb-6"
-            />
-            <p className="text-sm md:text-base text-gray-600 mb-6 text-center max-w-md">
-              Empowering the next generation of AI-driven developers with cutting-edge skills and knowledge.
-            </p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-full text-base font-semibold hover:bg-blue-700 transition duration-300 shadow-md hover:shadow-lg">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center mb-4 md:mb-0">
+              <motion.button 
+                onClick={() => window.location.reload()} 
+                className="focus:outline-none mr-4"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Image
+                  src="/logo-white.png"
+                  alt="Devtern Logo"
+                  width={80}
+                  height={50}
+                />
+              </motion.button>
+              <p className="text-sm text-gray-400">
+                Empowering the next generation of AI-driven developers
+              </p>
+            </div>
+            <motion.button 
+              className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
               Enroll Now
-            </button>
-            <p className="mt-8 text-sm text-gray-600">&copy; 2023 Devtern. All rights reserved.</p>
+            </motion.button>
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-800 text-center">
+            <p className="text-xs text-gray-400">&copy; 2024 Devtern. All rights reserved.</p>
           </div>
         </div>
       </footer>

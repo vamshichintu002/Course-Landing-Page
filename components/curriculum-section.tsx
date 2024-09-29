@@ -174,7 +174,7 @@ export function CurriculumSectionComponent() {
   return (
     <section className="py-8 md:py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
           What you will {' '}
           <TypeAnimation
             sequence={[
@@ -182,7 +182,6 @@ export function CurriculumSectionComponent() {
               1000,
               'create',
               1000,
-             
             ]}
             wrapper="span"
             speed={50}
@@ -192,10 +191,27 @@ export function CurriculumSectionComponent() {
           />
           <span className="text-blue-600">?</span>
         </h2>
-        <p className="text-center text-gray-600 mb-8 md:mb-12 text-sm md:text-base">
-          The most beginner-friendly curriculum in Generative AI.<br />
-          Zero to Pro in 6 months.
-        </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8 md:mb-12"
+        >
+          <p className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            The <span className="text-blue-600">most beginner-friendly</span> curriculum in Generative AI.
+          </p>
+          <div className="relative inline-block">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="absolute bottom-0 left-0 h-3 bg-yellow-300 z-0"
+            ></motion.div>
+            <p className="text-3xl md:text-4xl font-extrabold text-gray-900 relative z-10">
+              Zero to Pro
+            </p>
+          </div>
+        </motion.div>
         <Timeline modules={modules} toggleModule={toggleModule} />
       </div>
     </section>
