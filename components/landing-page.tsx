@@ -49,13 +49,34 @@ export function LandingPageComponent() {
   const closePaymentPopup = () => setIsPaymentPopupOpen(false)
 
   const questions = [
-    "What is Generative AI and how is it used?",
-    "What will I learn in this Generative AI course?",
-    "Who is the ideal candidate for this course?",
-    "What type of projects will I work on during the course?",
-    "Will I receive a certificate upon completing the course?",
-    "How does this course prepare me for the AI industry job market?",
-    "How long does the course last?"
+    {
+      question: "What is Generative AI and how is it used?",
+      answer: "Generative AI creates content like code, text, or images using machine learning. In this course, you'll use AI tools to build full stack web apps without coding."
+    },
+    {
+      question: "What will I learn in this Generative AI course?",
+      answer: "You'll learn to: Build web apps with AI, design both frontend and backend, create a portfolio and start your own SaaS business."
+    },
+    {
+      question: "Who is the ideal candidate for this course?",
+      answer: "This course is ideal for non-coders, tech enthusiasts, aspiring entrepreneurs, and professionals looking to develop web apps using AI."
+    },
+    {
+      question: "What type of projects will I work on during the course?",
+      answer: "You'll build full stack web apps, create a portfolio, and develop SaaS products to solve real-world problems."
+    },
+    {
+      question: "Will I receive a certificate upon completing the course?",
+      answer: "Yes, you'll get a devtern certificate of completion to add to your portfolio."
+    },
+    {
+      question: "How does this course prepare me for the AI industry job market?",
+      answer: "You'll gain real-world experience in AI-powered development, creating projects that showcase your skills to employers and clients."
+    },
+    {
+      question: "How long does the course last?",
+      answer: "The duration of the course is not specified. Please contact the course provider for more information."
+    }
   ]
 
   // Add this function inside your LandingPageComponent, before the return statement
@@ -380,7 +401,7 @@ export function LandingPageComponent() {
               Everything you need to know about the course and payments.
             </motion.p>
             <div className="space-y-3 md:space-y-4">
-              {questions.map((question, index) => (
+              {questions.map((item, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
@@ -393,7 +414,7 @@ export function LandingPageComponent() {
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                   >
-                    <span className="text-base md:text-lg font-semibold text-gray-800 pr-4">{question}</span>
+                    <span className="text-base md:text-lg font-semibold text-gray-800 pr-4">{item.question}</span>
                     <motion.div
                       animate={{ rotate: activeQuestion === index ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
@@ -412,7 +433,7 @@ export function LandingPageComponent() {
                     className="overflow-hidden"
                   >
                     <div className="p-4 md:p-6 pt-0 border-t border-gray-200">
-                      <p className="text-sm md:text-base text-gray-600">This is a placeholder answer for the question. Replace this with the actual answer.</p>
+                      <p className="text-sm md:text-base text-gray-600">{item.answer}</p>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -541,14 +562,16 @@ export function LandingPageComponent() {
                 Empowering the next generation of AI-driven developers
               </p>
             </div>
-            <motion.button 
-              className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              Contact Us 
-            </motion.button>
+            <a href="https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+              <motion.button 
+                className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Contact Us 
+              </motion.button>
+            </a>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-800 text-center">
             <p className="text-xs text-gray-400">&copy; 2024 Devtern. All rights reserved.</p>
