@@ -244,23 +244,37 @@ export function LandingPageComponent() {
               transition={{ duration: 0.6 }}
               className="text-lg md:text-xl font-mono mb-8 text-blue-600"
             >
-              &gt; Next Cohort Starts 4th October
+              &gt; Next Webinar Starts 6th November
             </motion.p>
             <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
+              variants={fadeInUp}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col items-center justify-center w-full max-w-md mx-auto space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4"
             >
-              <button className="bg-blue-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4 mr-4" onClick={openPaymentPopup}>
-              Enroll Now
-            </button>
+              <motion.button 
+                className="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                onClick={openPaymentPopup}
+              >
+                Enroll Now
+              </motion.button>
+              <motion.button 
+                className="bg-black text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl border-2 border-transparent hover:border-blue-600"
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Join Free Masterclass
+              </motion.button>
             </motion.div>
             <motion.p
               variants={fadeInUp}
               transition={{ duration: 0.6 }}
               className="mt-4 text-sm md:text-base text-gray-600 font-mono"
             >
-              Webinar Date - 29th September, Sunday
+              Webinar Date -6th November, Sunday
             </motion.p>
           </div>
           <div className="absolute inset-0 opacity-20">
