@@ -15,6 +15,7 @@ import { motion, Variants } from 'framer-motion'
 import TechStackCarousel from './TechStackCarousel'  // Add this import
 import { Card, CardContent } from "@/components/ui/card"
 import { ChevronRight } from "lucide-react"
+import PaymentOptionsPopup from './PaymentOptionsPopup'
 
 const AnimatedAdoptionLifecycleChart = dynamic(
   () => import('./AnimatedAdoptionLifecycleChart'),
@@ -27,6 +28,7 @@ const AnimatedAdoptionLifecycleChart = dynamic(
 export function LandingPageComponent() {
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false)
 
   const toggleQuestion = (index: number) => {
     setActiveQuestion(activeQuestion === index ? null : index)
@@ -42,6 +44,9 @@ export function LandingPageComponent() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const openPaymentPopup = () => setIsPaymentPopupOpen(true)
+  const closePaymentPopup = () => setIsPaymentPopupOpen(false)
 
   const questions = [
     "What is Generative AI and how is it used?",
@@ -82,8 +87,7 @@ export function LandingPageComponent() {
             <motion.button 
               onClick={() => window.location.reload()} 
               className="flex items-center focus:outline-none"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              // Removed motion effects
             >
               <Image
                 src="/logo.png"
@@ -94,10 +98,13 @@ export function LandingPageComponent() {
               />
             </motion.button>
             <nav className="hidden md:flex space-x-6">
-              {['overview', 'curriculum', 'FAQs'].map((item) => (
+              {['overview', 'curriculum', 'FAQs', 'Contact Us'].map((item) => (
                 <motion.button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
+                  onClick={() => item === 'Contact Us' 
+                    ? window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")
+                    : scrollToSection(item.toLowerCase())
+                  }
                   className="text-gray-600 hover:text-blue-600 transition duration-300"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -106,18 +113,11 @@ export function LandingPageComponent() {
                 </motion.button>
               ))}
               <motion.button 
-                onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")}
-                className="text-gray-600 hover:text-blue-600 transition duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Contact Us
-              </motion.button>
-              <motion.button 
                 className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
+                onClick={openPaymentPopup}
               >
                 Enroll Now
               </motion.button>
@@ -140,15 +140,19 @@ export function LandingPageComponent() {
               className="mt-4 md:hidden"
             >
               <ul className="space-y-2">
-                <li><button onClick={() => scrollToSection('overview')} className="block py-2 hover:text-blue-600">Overview</button></li>
-                <li><button onClick={() => scrollToSection('curriculum')} className="block py-2 hover:text-blue-600">Curriculum</button></li>
-                <li><button onClick={() => scrollToSection('faqs')} className="block py-2 hover:text-blue-600">FAQs</button></li>
-                <li><button 
-                  onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")} 
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Contact Us
-                </button></li>
+                {['overview', 'curriculum', 'FAQs', 'Contact Us'].map((item) => (
+                  <li key={item}>
+                    <button 
+                      onClick={() => item === 'Contact Us'
+                        ? window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")
+                        : scrollToSection(item.toLowerCase())
+                      } 
+                      className="block py-2 hover:text-blue-600 w-full text-left"
+                    >
+                      {item === 'FAQs' ? item : item.charAt(0).toUpperCase() + item.slice(1)}
+                    </button>
+                  </li>
+                ))}
                 <li>
                   <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 w-full">
                     Enroll Now
@@ -226,7 +230,7 @@ export function LandingPageComponent() {
               whileHover="hover"
               whileTap="tap"
             >
-              <button className="bg-blue-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4 mr-4">
+              <button className="bg-blue-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4 mr-4" onClick={openPaymentPopup}>
               Enroll Now
             </button>
             </motion.div>
@@ -443,7 +447,7 @@ export function LandingPageComponent() {
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
                   <span className="font-mono text-base md:text-lg mb-4 md:mb-8 space-y-2 block">
-                    Turn Ideas into <span className="font-bold text-black">Web Apps – No Code, Just AI</span>
+                  Build Smarter,<span className="font-bold text-black"> Not Harder –</span> Full Stack Development with AI
                   </span>
                 </motion.p>
                 <ul className="space-y-2 mb-6 md:mb-0">
@@ -474,7 +478,7 @@ export function LandingPageComponent() {
                   transition={{ delay: 1, duration: 0.3 }}
                   className="flex justify-center md:justify-start"
                 >
-                  <button className="bg-white text-blue-600 px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-100 transition duration-300 shadow-lg">
+                  <button className="bg-white text-blue-600 px-6 py-2 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-blue-100 transition duration-300 shadow-lg" onClick={openPaymentPopup}>
                     Enroll Now
                   </button>
                 </motion.div>
@@ -543,7 +547,7 @@ export function LandingPageComponent() {
               whileHover="hover"
               whileTap="tap"
             >
-              Enroll Now
+              Contact Us 
             </motion.button>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-800 text-center">
@@ -551,6 +555,8 @@ export function LandingPageComponent() {
           </div>
         </div>
       </footer>
+
+      <PaymentOptionsPopup isOpen={isPaymentPopupOpen} onClose={closePaymentPopup} />
     </div>
   )
 }
