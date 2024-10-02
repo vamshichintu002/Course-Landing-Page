@@ -67,7 +67,7 @@ export function LandingPageComponent() {
     },
     {
       question: "Will I receive a certificate upon completing the course?",
-      answer: "Yes, you'll get a devtern certificate of completion to add to your portfolio."
+      answer: "Yes, you'll get a StudentNest certificate of completion to add to your portfolio."
     },
     {
       question: "How does this course prepare me for the AI industry job market?",
