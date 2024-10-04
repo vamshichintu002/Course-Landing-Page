@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Devtern",
+  title: "Vamshi",
   description: "- Simplify, Build, Succeed",
 };
 
