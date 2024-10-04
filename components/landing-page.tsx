@@ -123,7 +123,7 @@ export function LandingPageComponent() {
                 <motion.button
                   key={item}
                   onClick={() => item === 'Contact Us' 
-                    ? window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")
+                    ? window.open("https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0", "_blank")
                     : scrollToSection(item.toLowerCase())
                   }
                   className="text-gray-600 hover:text-blue-600 transition duration-300"
@@ -165,7 +165,7 @@ export function LandingPageComponent() {
                   <li key={item}>
                     <button 
                       onClick={() => item === 'Contact Us'
-                        ? window.open("https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0", "_blank")
+                        ? window.open("https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0", "_blank")
                         : scrollToSection(item.toLowerCase())
                       } 
                       className="block py-2 hover:text-blue-600 w-full text-left"
