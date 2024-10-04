@@ -37,13 +37,13 @@ const PaymentOptionsPopup: React.FC<PaymentOptionsPopupProps> = ({ isOpen, onClo
         <p className="text-center mb-6 font-mono">Ready to Start Building Your Future?<br/> Secure Your Spot Now!</p>
         
         <div className="space-y-4">
-          <a href="https://buy.stripe.com/bIYaGE6EkgqD7HadQU" target="_blank" rel="noopener noreferrer">
+          <a href="https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
             <button className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300">
               Pay via Stripe
             </button>
           </a>
           <div className="space-y-4"></div>
-          <a href="https://payments.cashfree.com/forms/Devtern-Course" target="_blank" rel="noopener noreferrer">
+          <a href="https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
             <button className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300">
               Pay via Card/UPI/EMI
             </button>
@@ -53,7 +53,7 @@ const PaymentOptionsPopup: React.FC<PaymentOptionsPopupProps> = ({ isOpen, onClo
         <div className="mt-6 text-center">
           <p className="mb-2">You’re just one step away from transforming your ideas into fully functional web applications.</p>
           <p className="font-bold mb-4">Full course access.</p>
-          <a href="https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+          <a href="https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0" rel="noopener noreferrer">
             <button className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300">
               Contact Us
             </button>
