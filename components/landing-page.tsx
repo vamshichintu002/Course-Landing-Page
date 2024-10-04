@@ -112,7 +112,7 @@ export function LandingPageComponent() {
             >
               <Image
                 src="/logo.png"
-                alt="Devtern Logo"
+                alt="studentnest Logo"
                 width={120}
                 height={75}
                 className="mr-2"
@@ -567,7 +567,7 @@ export function LandingPageComponent() {
               >
                 <Image
                   src="/logo-white.png"
-                  alt="Devtern Logo"
+                  alt="StudentNest Logo"
                   width={80}
                   height={50}
                 />
@@ -588,7 +588,7 @@ export function LandingPageComponent() {
             </a>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-800 text-center">
-            <p className="text-xs text-gray-400">&copy; 2024 Devtern. All rights reserved.</p>
+            <p className="text-xs text-gray-400">&copy; 2024 StudentNest. All rights reserved.</p>
           </div>
         </div>
       </footer>
