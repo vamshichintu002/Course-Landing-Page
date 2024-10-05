@@ -576,7 +576,7 @@ export function LandingPageComponent() {
                 Empowering the next generation of AI-driven developers
               </p>
             </div>
-            <a href="https://api.whatsapp.com/send/?phone=%2B917673917050&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send/?phone=917396149081&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
               <motion.button 
                 className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300"
                 variants={buttonVariants}
